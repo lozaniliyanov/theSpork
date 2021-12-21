@@ -34,11 +34,15 @@
                     </b>
                     </li>
                     <li class="nav-item"><b>
-                        <a class="nav-link active" th:href="@{/users/login}">Log In</a>
+                        <a class="nav-link active" sec:authorize="!isAuthenticated()" th:href="@{/users/login}">Log In</a>
                     </b>
                     </li>
                     <li class="nav-item"><b>
-                        <a class="nav-link active" th:href="@{/users/register}">Register</a>
+                        <a class="nav-link active" sec:authorize="!isAuthenticated()" th:href="@{/users/register}">Register</a>
+                    </b>
+                    </li>
+                    <li class="nav-item"><b>
+                        <a class="nav-link active" sec:authorize="isAuthenticated()" th:href="@{/restaurants/addRestaurant}">Own a restaurant?</a>
                     </b>
                     </li>
                     <li class="nav-item"><b>
