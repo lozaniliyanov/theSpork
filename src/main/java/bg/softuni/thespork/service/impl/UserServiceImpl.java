@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean emailExists(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
+
+    @Override
     public UserEntity findByName(String username) {
         return userRepository
                 .findByUsername(username)
@@ -88,10 +93,6 @@ public class UserServiceImpl implements UserService {
         admin.addRole(restaurantRole);
         admin.addRole(adminRole);
         userRepository.save(admin);
-        UserDetails principal = theSporkUserService.loadUserByUsername(admin.getUsername());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                principal, admin.getPassword(), principal.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }
 

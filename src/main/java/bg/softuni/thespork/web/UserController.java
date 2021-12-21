@@ -26,8 +26,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ModelAttribute("userRegistrationBindingModel")
-    public UserRegistrationBindingModel createBindingModel() {
+    @ModelAttribute("registrationBindingModel")
+    public UserRegistrationBindingModel createRegisterBindingModel() {
         return new UserRegistrationBindingModel();
     }
 
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerAndLoginUser(
+    public String registerConfirm(
             @Valid UserRegistrationBindingModel userRegistrationBindingModel,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
@@ -55,19 +55,23 @@ public class UserController {
         if (userService.userNameExists(userRegistrationBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute("userExistsError", true);
-
             return "redirect:/users/register";
         }
-
+        if (userService.emailExists(userRegistrationBindingModel.getEmail())) {
+            redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
+            redirectAttributes.addFlashAttribute("emailExistsError", true);
+            return "redirect:/users/register";
+        }
         UserRegistrationServiceModel userRegistrationServiceModel = modelMapper.map(userRegistrationBindingModel, UserRegistrationServiceModel.class);
         userService.registerAndLoginUser(userRegistrationServiceModel);
         return "redirect:/home";
     }
 
     @PostMapping("/login-error")
-    public String failedLogin(@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-                                      String username,
-                              RedirectAttributes attributes) {
+    public String failedLogin
+            (@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                     String username,
+             RedirectAttributes attributes) {
 
         attributes.addFlashAttribute("bad_credentials", true);
         attributes.addFlashAttribute("username", username);

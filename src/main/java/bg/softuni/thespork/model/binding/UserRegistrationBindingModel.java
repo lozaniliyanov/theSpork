@@ -1,6 +1,7 @@
 package bg.softuni.thespork.model.binding;
 
 import bg.softuni.thespork.validators.FieldMatch;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

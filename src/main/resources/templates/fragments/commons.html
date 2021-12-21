@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,42 +20,42 @@
 <header th:fragment="navigation">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="logoByDDFixed.png" href="#" alt="theSporkLogo" width="190" height="63">
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/logoByDDFixed.png}" alt="theSporkLogo" width="190" height="63">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><b>
-                        <a class="nav-link active" aria-current="page" href="/register">Home</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
                     </b>
                     </li>
                     <li class="nav-item"><b>
-                        <a class="nav-link active" href="#">Log In</a>
+                        <a class="nav-link active" th:href="@{/users/login}">Log In</a>
                     </b>
                     </li>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Register
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/register">As a User</a>
-                            <a class="dropdown-item" href="/">Add article</a>
-                        </div>
-                    </div>
                     <li class="nav-item"><b>
-                        <a class="nav-link active" href="#">About</a></b>
+                        <a class="nav-link active" th:href="@{/users/register}">Register</a>
+                    </b>
+                    </li>
+                    <li class="nav-item"><b>
+                        <a class="nav-link active" th:href="@{/about}">About</a>
+                    </b>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <form th:action="@{/logout}" method="POST">
+                            <button type="submit" class="nav-link">
+                                Logout
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <h1>Discover and book the best restaurant</h1>
 </header>
 </body>
 </html>

@@ -6,6 +6,7 @@ import bg.softuni.thespork.model.service.UserRegistrationServiceModel;
 public interface UserService {
 
     boolean userNameExists(String username);
+    boolean emailExists(String email);
     UserEntity findByName(String username);
     UserEntity findById(Long id);
     void registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel);
