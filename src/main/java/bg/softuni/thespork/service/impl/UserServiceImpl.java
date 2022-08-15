@@ -4,6 +4,7 @@ import bg.softuni.thespork.model.entities.UserEntity;
 import bg.softuni.thespork.model.entities.UserRoleEntity;
 import bg.softuni.thespork.model.entities.enums.UserRole;
 import bg.softuni.thespork.model.service.UserRegistrationServiceModel;
+import bg.softuni.thespork.model.view.UserViewModel;
 import bg.softuni.thespork.repository.UserRepository;
 import bg.softuni.thespork.repository.UserRoleRepository;
 import bg.softuni.thespork.service.UserService;
@@ -14,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,18 +51,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findByName(String username) {
-        return userRepository
-                .findByUsername(username)
-                .orElseThrow(IllegalArgumentException::new);
-    }
-
-    @Override
     public UserEntity findById(Long id) {
         return userRepository
                 .findById(id)
                 .orElseThrow(IllegalArgumentException::new);
+    }
 
+    @Override
+    public UserEntity findByName(String username) {
+        return userRepository.findByUsername(username).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
@@ -82,17 +78,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void seedAdmin() {
-        UserEntity admin = new UserEntity().setUsername("admin").setEmail("admin@softuni.bg").setSurname("Lozanov").setPassword(passwordEncoder.encode("1234"));
+        UserEntity admin = new UserEntity().setUsername("admin").setPassword(passwordEncoder.encode("1234")).setEmail("admin@softuni.bg").setFirstName("Lozan").setSurname("Lozanov");
         UserRoleEntity userRole = userRoleRepository.findByRole(UserRole.USER).
                 orElseThrow(() -> new IllegalStateException("USER role not found. Please seed the roles."));
-        UserRoleEntity restaurantRole = userRoleRepository.findByRole(UserRole.RESTAURANT).
-                orElseThrow(() -> new IllegalStateException("RESTAURANT role not found. Please seed the roles."));
         UserRoleEntity adminRole = userRoleRepository.findByRole(UserRole.ADMIN).
                 orElseThrow(() -> new IllegalStateException("ADMIN role not found. Please seed the roles."));
         admin.addRole(userRole);
-        admin.addRole(restaurantRole);
         admin.addRole(adminRole);
         userRepository.save(admin);
+    }
+
+    @Override
+    public UserViewModel findByUsername(String username) {
+        return modelMapper.map(userRepository.findByUsername(username).orElseThrow(IllegalArgumentException::new), UserViewModel.class);
     }
 }
 

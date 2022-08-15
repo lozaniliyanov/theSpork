@@ -1,17 +1,10 @@
 package bg.softuni.thespork.model.service;
 
-import bg.softuni.thespork.model.entities.UserEntity;
-import bg.softuni.thespork.model.entities.enums.Cuisine;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
-
 public class RestaurantAddServiceModel {
     private String owner;
     private String restaurantName;
-    private Cuisine cuisine;
+    private String cuisine;
+    private String priceRange;
 
     public RestaurantAddServiceModel() {
 
@@ -35,12 +28,22 @@ public class RestaurantAddServiceModel {
         return this;
     }
 
-    public Cuisine getCuisine() {
+    public String getCuisine() {
         return cuisine;
     }
 
-    public RestaurantAddServiceModel setCuisine(Cuisine cuisine) {
+    public RestaurantAddServiceModel setCuisine(String cuisine) {
         this.cuisine = cuisine;
         return this;
     }
+
+    public String getPriceRange() {
+        return priceRange;
+    }
+
+    public RestaurantAddServiceModel setPriceRange(String priceRange) {
+        this.priceRange = priceRange;
+        return this;
+    }
+
 }

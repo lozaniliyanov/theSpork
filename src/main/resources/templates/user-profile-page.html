@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head">
+    <title>The Spork</title>
+</head>
+
+<body>
+
+<main>
+    <header th:replace="fragments/commons :: navigation"></header>
+    <section class="main__section-user-profile">
+        <div th:object="${userViewModel}" class="profile-page-container">
+            <div class="first-section-user-profile flex">
+                <img src="/images/portrait-placeholder.png" alt="profile-img" class="profile-img">
+                <a class="fa-solid fa-pen-to-square fa-3x profile-function-button" href=""></a>
+                <a class="fa-regular fa-trash-can fa-3x profile-function-button" href=""></a>
+            </div>
+            <ul class="account-info">
+                <li class="account-info-item">Username: <span th:text="*{username}" class="view-model-info-holder">some value</span>
+                </li>
+                <li class="account-info-item">First Name: <span class="view-model-info-holder">some value</span></li>
+                <li class="account-info-item">Surname: <span class="view-model-info-holder">some value</span></li>
+                <li class="account-info-item">Email: <span class="view-model-info-holder">some value</span></li>
+            </ul>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

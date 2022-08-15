@@ -21,9 +21,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     public void seedRoles() {
         if (userRoleRepository.count() == 0) {
             UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRole.ADMIN);
-            UserRoleEntity restaurantRole = new UserRoleEntity().setRole(UserRole.RESTAURANT);
             UserRoleEntity userRole = new UserRoleEntity().setRole(UserRole.USER);
-            userRoleRepository.saveAll(List.of(adminRole, restaurantRole, userRole));
+            userRoleRepository.saveAll(List.of(adminRole, userRole));
         }
     }
 }

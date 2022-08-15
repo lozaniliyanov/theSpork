@@ -1,0 +1,42 @@
+.main__section-user-profile {
+    padding-top: 7vh;
+}
+
+.profile-page-container {
+    max-width: 30vw;
+    border: 1px solid white;
+    background: rgba(0, 0, 0, 0.418);
+}
+
+.profile-img {
+    border-radius: 50%;
+    margin-top: 1rem;
+    max-width: 10vw;
+    max-height: 20vh;
+}
+
+.account-info {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    font-size: 3.1rem;
+    color: white;
+    text-align: right;
+}
+
+.account-info-item {
+    text-align: start;
+}
+
+.first-section-user-profile {
+    text-align: center;
+}
+
+.view-model-info-holder {
+    margin-right: 3rem;
+    float: right;
+}
+
+.profile-function-button {
+    margin: 1rem 2rem;
+    color: white;
+}

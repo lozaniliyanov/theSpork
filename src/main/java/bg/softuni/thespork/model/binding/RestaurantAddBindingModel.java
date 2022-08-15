@@ -1,13 +1,11 @@
 package bg.softuni.thespork.model.binding;
 
-import bg.softuni.thespork.model.entities.UserEntity;
 import bg.softuni.thespork.model.entities.enums.Cuisine;
 
 public class RestaurantAddBindingModel {
     private String owner;
     private String restaurantName;
     private Cuisine cuisine;
-
     public RestaurantAddBindingModel() {
 
     }

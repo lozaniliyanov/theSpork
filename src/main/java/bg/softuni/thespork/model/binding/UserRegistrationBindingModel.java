@@ -1,7 +1,6 @@
 package bg.softuni.thespork.model.binding;
 
 import bg.softuni.thespork.validators.FieldMatch;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -10,16 +9,18 @@ import javax.validation.constraints.Size;
 
 @FieldMatch(first = "password", second = "confirmPassword")
 public class UserRegistrationBindingModel {
-
+    @NotEmpty(message = "This field if required!")
+    @Size(min = 2, max = 20, message = "Please insert your first name")
+    private String firstName;
+    @NotEmpty(message = "This field is required!")
+    @Size(min = 2, max = 20, message = "Surname must be between 2 and 20 characters long!")
+    private String surname;
     @NotEmpty(message = "This field is required!")
     @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long!")
     private String username;
     @NotEmpty(message = "This field is required!")
     @Email
     private String email;
-    @NotEmpty(message = "This field is required!")
-    @Size(min = 2, max = 20, message = "Surname must be between 2 and 20 characters long!")
-    private String surname;
     @NotNull(message = "This field is required!")
     @Size(min = 4, max = 20, message = "Password must be between 4 and 20 characters long!")
     private String password;
@@ -28,6 +29,24 @@ public class UserRegistrationBindingModel {
 
     public UserRegistrationBindingModel() {
 
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public UserRegistrationBindingModel setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public UserRegistrationBindingModel setSurname(String surname) {
+        this.surname = surname;
+        return this;
     }
 
     public String getUsername() {
@@ -45,15 +64,6 @@ public class UserRegistrationBindingModel {
 
     public UserRegistrationBindingModel setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public UserRegistrationBindingModel setSurname(String surname) {
-        this.surname = surname;
         return this;
     }
 

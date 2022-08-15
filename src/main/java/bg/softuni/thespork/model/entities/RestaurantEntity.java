@@ -1,30 +1,22 @@
 package bg.softuni.thespork.model.entities;
 
 import bg.softuni.thespork.model.entities.enums.Cuisine;
+import bg.softuni.thespork.model.entities.enums.PriceRange;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurants")
 public class RestaurantEntity extends BaseEntity {
-    @OneToOne
-    private UserEntity owner;
     @Column(name = "restaurant_name")
     private String restaurantName;
     @Enumerated(EnumType.STRING)
     private Cuisine cuisine;
+    @Enumerated(EnumType.STRING)
+    private PriceRange priceRange;
 
     public RestaurantEntity() {
 
-    }
-
-    public UserEntity getOwner() {
-        return owner;
-    }
-
-    public RestaurantEntity setOwner(UserEntity owner) {
-        this.owner = owner;
-        return this;
     }
 
     public String getRestaurantName() {
@@ -42,6 +34,15 @@ public class RestaurantEntity extends BaseEntity {
 
     public RestaurantEntity setCuisine(Cuisine cuisine) {
         this.cuisine = cuisine;
+        return this;
+    }
+
+    public PriceRange getPriceRange() {
+        return priceRange;
+    }
+
+    public RestaurantEntity setPriceRange(PriceRange priceRange) {
+        this.priceRange = priceRange;
         return this;
     }
 }
