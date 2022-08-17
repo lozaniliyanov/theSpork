@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head">
+    <title>The Spork</title>
+</head>
+
+<body>
+
+<main>
+    <header th:replace="fragments/commons :: navigation"></header>
+    <section class="main__section">
+        <div class="universal__form">
+            <h1 class="universal__banner">LOGIN</h1>
+            <div th:if="${bad_credentials}">This username and password combination does not exist.</div>
+            <form th:action="@{/users/login}" method="POST">
+                <div class="input__field__div">
+                    <input type="text"
+                           name="username"
+                           th:value="${username}"
+                           required id="inputUsername"
+                           class="input__field"
+                           aria-describedby="usernameHelpInline"
+                           placeholder="username">
+                    <label class="input__field__title" for="inputUsername">Username</label>
+                </div>
+                <div class="input__field__div">
+                    <input type="password"
+                           name="password"
+                           th:value="${password}"
+                           required id="inputPassword"
+                           class="input__field"
+                           aria-describedby="passwordHelpInline"
+                           placeholder="password">
+                    <label class="input__field__title" for="inputPassword">Password</label>
+                </div>
+                <button type="submit" class="universal__button">LOGIN</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

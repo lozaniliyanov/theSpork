@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head">
+    <title>The Spork</title>
+</head>
+
+<body>
+
+<main>
+    <header th:replace="fragments/commons :: navigation"></header>
+    <section class="main__section">
+        <h1 class="catchphrase">discover and book the best restaurant</h1>
+        <div class="search__bar">
+            <label class="input__field__title" for="search__field"></label>
+            <input id="search__field" class="search__field" type="text"
+                   placeholder="search by restaurant name or type of food">
+            <!--            todo: make search query / api for search button-->
+            <button class="search__button" href="/TheSporkWIP2/02_login.html">search</button>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head">
+    <title>The Spork</title>
+</head>
+
+<body>
+
+<main>
+    <header th:replace="fragments/commons :: navigation"></header>
+    <section class="main__section">
+        <div class="universal__form">
+            <h1 class="universal__banner">REGISTER</h1>
+            <form th:action="@{/users/register}"
+                  th:object="${registrationBindingModel}"
+                  method="POST">
+                <div class="input__field__div">
+                    <input name="username"
+                           th:field="*{username}"
+                           th:errorclass="is-invalid"
+                           required minlength="3" maxlength="20"
+                           id="inputUsername" class="input__field"
+                           type="text" placeholder="username"
+                           aria-describedby="usernameHelpInline">
+                    <label class="input__field__title" for="inputUsername">Username</label>
+                </div>
+                <div class="input__field__div">
+                    <input name="password"
+                           th:field="*{password}"
+                           th:errorclass="is-invalid"
+                           required minlength="4" maxlength="20"
+                           id="inputPassword" class="input__field"
+                           type="password" placeholder="password"
+                           aria-describedby="passwordHelpInline">
+                    <label class="input__field__title" for="inputPassword">Password</label>
+                </div>
+                <div class="input__field__div">
+                    <input name="confirm_password"
+                           th:field="*{confirmPassword}"
+                           th:errorclass="is-invalid"
+                           required minlength="4" maxlength="20"
+                           id="inputConfirmPassword" class="input__field"
+                           type="password" placeholder="confirm password"
+                           aria-describedby="confirmPasswordHelpInline">
+                    <label class="input__field__title" for="inputConfirmPassword">Confirm Password</label>
+                </div>
+                <div class="input__field__div">
+                    <input name="email"
+                           th:field="*{email}"
+                           th:errorclass="is-invalid"
+                           required
+                           id="inputEmail" class="input__field"
+                           type="email" placeholder="email"
+                           aria-describedby="emailHelpInline">
+                    <label class="input__field__title" for="inputEmail">Email</label>
+                </div>
+                <div class="input__field__div">
+                    <input name="firstName"
+                           th:field="*{firstName}"
+                           th:errorclass="is-invalid"
+                           required minlength="2" maxlength="20"
+                           id="inputFirstName" class="input__field"
+                           type="text" placeholder="first name"
+                           aria-describedby="firstNameHelpInline">
+                    <label class="input__field__title" for="inputFirstName">First Name</label>
+                </div>
+                <div class="input__field__div">
+                    <input name="surname"
+                           th:field="*{surname}"
+                           th:errorclass="is-invalid"
+                           required minlength="2" maxlength="20"
+                           id="inputSurname" class="input__field"
+                           type="text" placeholder="surname"
+                           aria-describedby="surnameHelpInline">
+                    <label class="input__field__title" for="inputSurname">Surname</label>
+                </div>
+                <button type="submit" class="universal__button">REGISTER</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+
+</html>

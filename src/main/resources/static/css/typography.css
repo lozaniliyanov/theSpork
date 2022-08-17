@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap");
+
+
+html {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+h1, a, button {
+  font-style: italic;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+p, button, input, label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+img {
+  font-family: "Open Sans", sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+}
