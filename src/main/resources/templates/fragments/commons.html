@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
@@ -9,43 +8,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/0447b00f79.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+            integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+            integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+            crossorigin="anonymous"></script>
     <title>The Spork</title>
 </head>
 <body>
 <header th:fragment="navigation">
-    <nav class="header__nav">
-        <i class="fa-solid fa-utensils fa-3x" id="logo"></i>
-        <ul class="nav__list">
-            <li class="nav__item">
-                <a class="nav__itemlink" sec:authorize="isAuthenticated()"
-                   th:href="@{/users/user-profile-page}">PROFILE</a>
-            </li>
-            <li class="nav__item">
-                <a class="nav__itemlink" href="">HOME</a>
-            </li>
-            <li class="nav__item">
-                <a class="nav__itemlink" sec:authorize="!isAuthenticated()" th:href="@{/users/login}">LOGIN</a>
-            </li>
-            <li class="nav__item">
-                <a class="nav__itemlink" sec:authorize="!isAuthenticated()" th:href="@{/users/register}">REGISTER</a>
-            </li>
-            <li class="nav__item">
-                <a class="nav__itemlink" sec:authorize="!isAuthenticated()" th:href="@{/about}">ABOUT</a>
-            </li>
-            <li class="nav__item">
-                <a class="nav__itemlink" sec:authorize="!isAuthenticated()" th:href="@{/contacts}">CONTACT</a>
-            </li>
-            <li sec:authorize="isAuthenticated()" class="nav__item">
-                <form th:action="@{/logout}" method="POST">
-                    <button id="logout__button" class="nav__itemlink" type="submit">LOGOUT</button>
-                </form>
-            </li>
-            <li class="nav__item">
-                <a class="nav__itemlink" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/adminPage}">ADMIN</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">The Spork</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+                    aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample04">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link active" th:href="@{/users/register}">Register</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link active" th:href="@{/users/login}">Login</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"  class="nav-item">
+                        <a class="nav-link active" th:href="@{/users/user-profile}">Profile</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link dropdown-toggle" th:href="@{/}" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/}">Action</a></li>
+                            <li><a class="dropdown-item" th:href="@{/}">Another action</a></li>
+                            <li><a class="dropdown-item" th:href="@{/}">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <form th:action="@{/logout}" method="POST">
+                            <button type="submit" class="btn btn-link logout">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>
 </body>
+<div th:fragment="footer" class="container">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a th:href="@{/users/register}" class="nav-link px-2 text-muted">Register</a></li>
+            <li class="nav-item"><a th:href="@{/users/login}" class="nav-link px-2 text-muted">Login</a></li>
+            <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+        <p class="text-center text-muted">© 2022 The Spork by Lozan Lozanov, Inc</p>
+    </footer>
+</div>
 </html>

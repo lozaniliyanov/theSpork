@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -26,18 +27,19 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http.
                 authorizeRequests().
                 requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
-                antMatchers("/", "/users/register", "/users/login").permitAll().
+                antMatchers("/", "/users/login", "/users/register").permitAll().
                 antMatchers("/adminPage").hasRole("ADMIN").
                 antMatchers("/**").authenticated().
                 and().
                 formLogin().
                 loginPage("/users/login").
-                usernameParameter("username").
-                passwordParameter("password").
+                usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
+                passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
                 defaultSuccessUrl("/home").
-                failureForwardUrl("/login").
+                failureForwardUrl("/users/login-error").
                 and().
-                logout().logoutUrl("/logout").
+                logout().
+                logoutUrl("/logout").
                 logoutSuccessUrl("/").
                 invalidateHttpSession(true).
                 deleteCookies("JSESSIONID");
@@ -45,6 +47,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(theSporkUserService).passwordEncoder(passwordEncoder);
+        auth.
+                userDetailsService(theSporkUserService).
+                passwordEncoder(passwordEncoder);
     }
 }

@@ -1,5 +1,6 @@
 package bg.softuni.thespork.model.binding;
 
+import bg.softuni.thespork.model.entities.enums.Title;
 import bg.softuni.thespork.validators.FieldMatch;
 
 import javax.validation.constraints.Email;
@@ -10,11 +11,13 @@ import javax.validation.constraints.Size;
 @FieldMatch(first = "password", second = "confirmPassword")
 public class UserRegistrationBindingModel {
     @NotEmpty(message = "This field if required!")
-    @Size(min = 2, max = 20, message = "Please insert your first name")
+    @Size(min = 2, max = 20, message = "Please insert a valid first name")
     private String firstName;
     @NotEmpty(message = "This field is required!")
-    @Size(min = 2, max = 20, message = "Surname must be between 2 and 20 characters long!")
-    private String surname;
+    @Size(min = 2, max = 20, message = "Please insert a valid last name")
+    private String lastName;
+    @NotNull(message = "Please select a title")
+    private Title title;
     @NotEmpty(message = "This field is required!")
     @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long!")
     private String username;
@@ -40,12 +43,21 @@ public class UserRegistrationBindingModel {
         return this;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public UserRegistrationBindingModel setSurname(String surname) {
-        this.surname = surname;
+    public UserRegistrationBindingModel setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public UserRegistrationBindingModel setTitle(Title title) {
+        this.title = title;
         return this;
     }
 

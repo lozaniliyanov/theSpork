@@ -1,84 +1,98 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons :: head">
-    <title>The Spork</title>
-</head>
-
+<head th:replace="fragments/commons :: head"><title>The Spork</title></head>
 <body>
-
-<main>
-    <header th:replace="fragments/commons :: navigation"></header>
-    <section class="main__section">
-        <div class="universal__form">
-            <h1 class="universal__banner">REGISTER</h1>
-            <form th:action="@{/users/register}"
-                  th:object="${registrationBindingModel}"
-                  method="POST">
-                <div class="input__field__div">
-                    <input name="username"
-                           th:field="*{username}"
-                           th:errorclass="is-invalid"
-                           required minlength="3" maxlength="20"
-                           id="inputUsername" class="input__field"
-                           type="text" placeholder="username"
-                           aria-describedby="usernameHelpInline">
-                    <label class="input__field__title" for="inputUsername">Username</label>
-                </div>
-                <div class="input__field__div">
-                    <input name="password"
-                           th:field="*{password}"
-                           th:errorclass="is-invalid"
-                           required minlength="4" maxlength="20"
-                           id="inputPassword" class="input__field"
-                           type="password" placeholder="password"
-                           aria-describedby="passwordHelpInline">
-                    <label class="input__field__title" for="inputPassword">Password</label>
-                </div>
-                <div class="input__field__div">
-                    <input name="confirm_password"
-                           th:field="*{confirmPassword}"
-                           th:errorclass="is-invalid"
-                           required minlength="4" maxlength="20"
-                           id="inputConfirmPassword" class="input__field"
-                           type="password" placeholder="confirm password"
-                           aria-describedby="confirmPasswordHelpInline">
-                    <label class="input__field__title" for="inputConfirmPassword">Confirm Password</label>
-                </div>
-                <div class="input__field__div">
-                    <input name="email"
-                           th:field="*{email}"
-                           th:errorclass="is-invalid"
-                           required
-                           id="inputEmail" class="input__field"
-                           type="email" placeholder="email"
-                           aria-describedby="emailHelpInline">
-                    <label class="input__field__title" for="inputEmail">Email</label>
-                </div>
-                <div class="input__field__div">
-                    <input name="firstName"
+<header th:replace="fragments/commons :: navigation"></header>
+<main class="container">
+    <div class="col-md-7 col-lg-8 register">
+        <h4 class="mb-3">Register</h4>
+        <form class="needs-validation" th:action="@{/users/register}"
+              th:object="${userRegistrationBindingModel}"
+              method="POST">
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label for="firstName" class="form-label">First name</label>
+                    <input type="text" class="form-control" name="firstName" id="firstName"
                            th:field="*{firstName}"
-                           th:errorclass="is-invalid"
-                           required minlength="2" maxlength="20"
-                           id="inputFirstName" class="input__field"
-                           type="text" placeholder="first name"
-                           aria-describedby="firstNameHelpInline">
-                    <label class="input__field__title" for="inputFirstName">First Name</label>
+                           th:errorclass="bg-danger"
+                           required
+                           placeholder="First Name">
+                    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Your first name is required.
+                    </div>
                 </div>
-                <div class="input__field__div">
-                    <input name="surname"
-                           th:field="*{surname}"
-                           th:errorclass="is-invalid"
-                           required minlength="2" maxlength="20"
-                           id="inputSurname" class="input__field"
-                           type="text" placeholder="surname"
-                           aria-describedby="surnameHelpInline">
-                    <label class="input__field__title" for="inputSurname">Surname</label>
-                </div>
-                <button type="submit" class="universal__button">REGISTER</button>
-            </form>
-        </div>
-    </section>
-</main>
-</body>
 
+                <div class="col-sm-6">
+                    <label for="lastName" class="form-label">Last name</label>
+                    <input type="text" class="form-control" name="lastName" id="lastName" th:field="*{lastName}"
+                           th:errorclass="bg-danger"
+                           required
+                           placeholder="Last Name">
+                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Your last name is required.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="email" class="form-label"><span>Email</span></label>
+                    <input type="email" class="form-control" name="email" id="email" th:field="*{email}"
+                           th:errorclass="bg-danger"
+                           required
+                           placeholder="you@example.com">
+                </div>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Please insert a valid email.
+                </div>
+                <div class="col-12">
+                    <label for="username" class="form-label">Username</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control" name="username" id="username" th:field="*{username}"
+                               th:errorclass="bg-danger"
+                               required
+                               placeholder="Username">
+                    </div>
+                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Your username is required.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group has-validation">
+                        <input type="password" class="form-control" name="password" id="password" th:field="*{password}"
+                               th:errorclass="bg-danger"
+                               required
+                               placeholder="Password">
+                    </div>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Your
+                        password is required.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <div class="input-group has-validation">
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword"
+                               th:field="*{confirmPassword}"
+                               th:errorclass="bg-danger"
+                               required
+                               placeholder="Confirm Password">
+                    </div>
+                    <div th:if="${#fields.hasErrors('confirmPassword')}"
+                         th:errors="*{confirmPassword}">Your password is required.
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <label for="title" class="form-label">Title</label>
+                    <select th:field="*{title}" class="form-select" name="title" id="title" required
+                            th:errorclass="bg-danger">
+                        <option value="">Choose title</option>
+                        <option th:each="t : ${T(bg.softuni.thespork.model.entities.enums.Title).values()}"
+                                th:text="${t}" th:value="${t}">Try
+                        </option>
+                    </select>
+                </div>
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Your title is required.
+                </div>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Register</button>
+                <hr class="my-4">
+            </div>
+        </form>
+    </div>
+</main>
+<div th:replace="fragments/commons :: footer"></div>
+</body>
 </html>

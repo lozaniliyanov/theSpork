@@ -2,14 +2,15 @@ package bg.softuni.thespork.web;
 
 import bg.softuni.thespork.model.binding.UserRegistrationBindingModel;
 import bg.softuni.thespork.model.service.UserRegistrationServiceModel;
-import bg.softuni.thespork.model.view.UserViewModel;
 import bg.softuni.thespork.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -25,16 +26,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ModelAttribute("registrationBindingModel")
+    @ModelAttribute("userRegistrationBindingModel")
     public UserRegistrationBindingModel createRegisterBindingModel() {
         return new UserRegistrationBindingModel();
     }
-
-    @ModelAttribute("userViewModelForProfilePage")
-    public UserViewModel createUserViewModel() {
-        return new UserViewModel();
-    }
-
 
     @GetMapping("/login")
     public String login() {
@@ -55,29 +50,22 @@ public class UserController {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
-            return "redirect:/register";
+
+            return "redirect:/users/register";
         }
         if (userService.userNameExists(userRegistrationBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute("userExistsError", true);
-            return "redirect:/register";
+            return "redirect:/users/register";
         }
         if (userService.emailExists(userRegistrationBindingModel.getEmail())) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute("emailExistsError", true);
-            return "redirect:/register";
+            return "redirect:/users/register";
         }
         UserRegistrationServiceModel userRegistrationServiceModel = modelMapper.map(userRegistrationBindingModel, UserRegistrationServiceModel.class);
         userService.registerAndLoginUser(userRegistrationServiceModel);
         return "redirect:/home";
-    }
-
-    @GetMapping("/user-profile-page/{id}")
-    public String userProfilePage(@PathVariable Long id, Model model) {
-        UserViewModel userViewModel = modelMapper.map(userService.findById(id), UserViewModel.class);
-        model.addAttribute("user", userViewModel);
-
-        return "user-profile-page";
     }
 
     @PostMapping("/login-error")
@@ -88,7 +76,7 @@ public class UserController {
         attributes.addFlashAttribute("bad_credentials", true);
         attributes.addFlashAttribute("username", username);
 
-
-        return "redirect:/login";
+        return "redirect:/users/login";
     }
+
 }

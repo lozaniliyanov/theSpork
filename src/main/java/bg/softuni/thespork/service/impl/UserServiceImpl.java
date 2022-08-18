@@ -2,6 +2,7 @@ package bg.softuni.thespork.service.impl;
 
 import bg.softuni.thespork.model.entities.UserEntity;
 import bg.softuni.thespork.model.entities.UserRoleEntity;
+import bg.softuni.thespork.model.entities.enums.Title;
 import bg.softuni.thespork.model.entities.enums.UserRole;
 import bg.softuni.thespork.model.service.UserRegistrationServiceModel;
 import bg.softuni.thespork.model.view.UserViewModel;
@@ -66,8 +67,7 @@ public class UserServiceImpl implements UserService {
     public void registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel) {
         UserEntity newUser = modelMapper.map(userRegistrationServiceModel, UserEntity.class);
         newUser.setPassword(passwordEncoder.encode(userRegistrationServiceModel.getPassword()));
-        UserRoleEntity userRole = userRoleRepository.findByRole(UserRole.USER).
-                orElseThrow(() -> new IllegalStateException("USER role not found. Please seed the roles."));
+        UserRoleEntity userRole = userRoleRepository.findByRole(UserRole.USER).orElseThrow(() -> new IllegalStateException("USER role not found. Please seed the roles."));
         newUser.addRole(userRole);
         newUser = userRepository.save(newUser);
         UserDetails principal = theSporkUserService.loadUserByUsername(newUser.getUsername());
@@ -78,14 +78,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void seedAdmin() {
-        UserEntity admin = new UserEntity().setUsername("admin").setPassword(passwordEncoder.encode("1234")).setEmail("admin@softuni.bg").setFirstName("Lozan").setSurname("Lozanov");
-        UserRoleEntity userRole = userRoleRepository.findByRole(UserRole.USER).
-                orElseThrow(() -> new IllegalStateException("USER role not found. Please seed the roles."));
-        UserRoleEntity adminRole = userRoleRepository.findByRole(UserRole.ADMIN).
-                orElseThrow(() -> new IllegalStateException("ADMIN role not found. Please seed the roles."));
-        admin.addRole(userRole);
-        admin.addRole(adminRole);
-        userRepository.save(admin);
+        if (userRepository.count() == 0) {
+            UserEntity admin = new UserEntity().setUsername("admin").setPassword(passwordEncoder.encode("1234")).setEmail("admin@softuni.bg").setFirstName("Lozan").setLastName("Lozanov").setTitle(Title.Mr);
+            UserRoleEntity userRole = userRoleRepository.findByRole(UserRole.USER).
+                    orElseThrow(() -> new IllegalStateException("USER role not found. Please seed the roles."));
+            UserRoleEntity adminRole = userRoleRepository.findByRole(UserRole.ADMIN).
+                    orElseThrow(() -> new IllegalStateException("ADMIN role not found. Please seed the roles."));
+            admin.addRole(userRole);
+            admin.addRole(adminRole);
+            userRepository.save(admin);
+        }
     }
 
     @Override

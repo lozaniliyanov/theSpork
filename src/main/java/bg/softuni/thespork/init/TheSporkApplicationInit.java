@@ -15,7 +15,6 @@ public class TheSporkApplicationInit implements CommandLineRunner {
         this.userRoleService = userRoleService;
         this.userService = userService;
     }
-
     @Override
     public void run(String... args) throws Exception {
         userRoleService.seedRoles();

@@ -1,5 +1,7 @@
 package bg.softuni.thespork.model.entities;
 
+import bg.softuni.thespork.model.entities.enums.Title;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +11,10 @@ import java.util.List;
 public class UserEntity extends BaseEntity {
     @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "surname", nullable = false)
-    private String surname;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+    @Enumerated(EnumType.STRING)
+    private Title title;
     @Column(name = "username", nullable = false, unique = true)
     private String username;
     @Column(name = "email", nullable = false, unique = true)
@@ -35,12 +39,21 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public UserEntity setSurname(String surname) {
-        this.surname = surname;
+    public Title getTitle() {
+        return title;
+    }
+
+    public UserEntity setTitle(Title title) {
+        this.title = title;
+        return this;
+    }
+
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 

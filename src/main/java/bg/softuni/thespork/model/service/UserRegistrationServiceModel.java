@@ -3,7 +3,8 @@ package bg.softuni.thespork.model.service;
 public class UserRegistrationServiceModel {
 
     private String firstName;
-    private String surname;
+    private String lastName;
+    private String title;
     private String username;
     private String email;
     private String password;
@@ -21,12 +22,21 @@ public class UserRegistrationServiceModel {
         return this;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public UserRegistrationServiceModel setSurname(String surname) {
-        this.surname = surname;
+    public UserRegistrationServiceModel setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public UserRegistrationServiceModel setTitle(String title) {
+        this.title = title;
         return this;
     }
 
