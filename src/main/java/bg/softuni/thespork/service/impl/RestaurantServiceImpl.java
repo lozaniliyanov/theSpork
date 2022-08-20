@@ -1,45 +1,81 @@
-//package bg.softuni.thespork.service.impl;
-//
-//import bg.softuni.thespork.model.entities.RestaurantEntity;
-//import bg.softuni.thespork.model.entities.UserEntity;
-//import bg.softuni.thespork.model.entities.UserRoleEntity;
-//import bg.softuni.thespork.model.entities.enums.UserRole;
-//import bg.softuni.thespork.model.service.RestaurantAddServiceModel;
-//import bg.softuni.thespork.repository.RestaurantRepository;
-//import bg.softuni.thespork.repository.UserRepository;
-//import bg.softuni.thespork.repository.UserRoleRepository;
-//import bg.softuni.thespork.service.RestaurantService;
-//import org.modelmapper.ModelMapper;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class RestaurantServiceImpl implements RestaurantService {
-//
-//    private final RestaurantRepository restaurantRepository;
-//    private final UserRepository userRepository;
-//    private final UserRoleRepository userRoleRepository;
-//    private final ModelMapper modelMapper;
-//
-//    public RestaurantServiceImpl(RestaurantRepository restaurantRepository,
-//                                 UserRepository userRepository,
-//                                 UserRoleRepository userRoleRepository,
-//                                 ModelMapper modelMapper) {
-//        this.restaurantRepository = restaurantRepository;
-//        this.userRepository = userRepository;
-//        this.userRoleRepository = userRoleRepository;
-//        this.modelMapper = modelMapper;
-//    }
-//
-//    @Override
-//    public void addRestaurant(RestaurantAddServiceModel restaurantAddServiceModel) {
-//        RestaurantEntity restaurantEntity = modelMapper.map(restaurantAddServiceModel, RestaurantEntity.class);
-//        UserEntity owner = userRepository.findByUsername(restaurantAddServiceModel.getOwner()).orElseThrow(() ->
-//                new IllegalArgumentException("Owner " + restaurantAddServiceModel.getOwner() + " could not be found"));
-//        UserRoleEntity restaurantRole = userRoleRepository.findByRole(UserRole.RESTAURANT_OWNER).
-//                orElseThrow(() -> new IllegalStateException("RESTAURANT role not found. Please seed the roles."));
-//        owner.getRoles().add(restaurantRole);
-//        userRepository.save(owner);
-////        restaurantEntity.setOwner(owner);
-//        restaurantRepository.save(restaurantEntity);
-//    }
-//}
+package bg.softuni.thespork.service.impl;
+
+import bg.softuni.thespork.model.entities.RestaurantEntity;
+import bg.softuni.thespork.model.entities.enums.Cuisine;
+import bg.softuni.thespork.model.entities.enums.PriceRange;
+import bg.softuni.thespork.model.service.RestaurantServiceModel;
+import bg.softuni.thespork.repository.RestaurantRepository;
+import bg.softuni.thespork.service.RestaurantService;
+import bg.softuni.thespork.service.UserService;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class RestaurantServiceImpl implements RestaurantService {
+
+    private final ModelMapper modelMapper;
+    private final RestaurantRepository restaurantRepository;
+    private final UserService userService;
+
+    public RestaurantServiceImpl(ModelMapper modelMapper, RestaurantRepository restaurantRepository, UserService userService) {
+        this.modelMapper = modelMapper;
+        this.restaurantRepository = restaurantRepository;
+        this.userService = userService;
+    }
+
+    @Override
+    public void seedRestaurants() {
+        RestaurantEntity pikos = new RestaurantEntity().
+                setRestaurantName("Pikos").
+                setCuisine(Cuisine.MEXICAN).
+                setPriceRange(PriceRange.$$$$).
+                setRating(5.0).
+                setOwner(userService.findByName("pikosOwner"));
+        RestaurantEntity mamos = new RestaurantEntity().
+                setRestaurantName("Mamos").
+                setCuisine(Cuisine.AMERICAN).
+                setPriceRange(PriceRange.$$$$).
+                setRating(5.0).
+                setOwner(userService.findByName("mamosOwner"));
+        restaurantRepository.save(pikos);
+        restaurantRepository.save(mamos);
+    }
+
+
+    @Override
+    public void addRestaurant(RestaurantServiceModel restaurantServiceModel) {
+
+    }
+
+    @Override
+    public RestaurantServiceModel findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public RestaurantEntity findByName(String name) {
+        return restaurantRepository.findByRestaurantName(name).orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
+    public List<RestaurantServiceModel> findAllRestaurants() {
+        return null;
+    }
+
+    @Override
+    public List<RestaurantServiceModel> findAllUserRestaurants(String username) {
+        return null;
+    }
+
+    @Override
+    public void deleteRestaurant(Long id) {
+
+    }
+
+    @Override
+    public RestaurantServiceModel editRestaurantInfo(RestaurantServiceModel restaurantServiceModel, Long id) {
+        return null;
+    }
+}

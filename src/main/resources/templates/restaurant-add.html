@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head">
+    <title>The Spork</title>
+</head>
+<body>
+<header th:replace="fragments/commons :: navigation"></header>
+<main class="container">
+    <div class="col-md-7 col-lg-8 restaurantAdd">
+        <h4 class="mb-3">Add your Restaurant</h4>
+        <form class="needs-validation" th:action="@{/restaurants/add}" th:object="${restaurantAddBindingModel}"
+              method="POST">
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="restaurantName" class="form-label">Restaurant Name</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control" name="restaurantName" id="restaurantName"
+                               th:field="*{restaurantName}"
+                               th:errorclass="bg-danger" required placeholder="Restaurant Name">
+                    </div>
+                    <div th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}">Restaurant
+                        Name is
+                        required.
+                    </div>
+                </div>
+                <div class="col-md-7 selectForm">
+                    <label for="cuisine" class="form-label">Cuisine</label>
+                    <select th:field="*{cuisine}" class="form-select selectForm" name="cuisine" id="cuisine" required
+                            th:errorclass="bg-danger">
+                        <option value="">Choose...</option>
+                        <option th:each="c : ${T(bg.softuni.thespork.model.entities.enums.Cuisine).values()}"
+                                th:text="${c}" th:value="${c}">Try
+                        </option>
+                    </select>
+                </div>
+                <div th:if="${#fields.hasErrors('cuisine')}" th:errors="*{cuisine}">Choose the cuisine.
+                </div>
+                <hr class="my-4">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Add Restaurant</button>
+            </div>
+        </form>
+    </div>
+</main>
+<div th:replace="fragments/commons :: footer"></div>
+</body>
+</html>

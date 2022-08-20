@@ -23,6 +23,8 @@ public class UserEntity extends BaseEntity {
     private String password;
     @Column(name = "profile_image_url")
     private String profileImageURL;
+    @OneToMany(mappedBy = "author")
+    private List<ReviewEntity> reviews;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
 
@@ -93,12 +95,22 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
+
     public List<UserRoleEntity> getRoles() {
         return roles;
     }
 
     public UserEntity setRoles(List<UserRoleEntity> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public UserEntity setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
         return this;
     }
 

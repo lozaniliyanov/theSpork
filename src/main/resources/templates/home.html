@@ -8,26 +8,38 @@
 <body>
 <header th:replace="fragments/commons :: navigation"></header>
 <main class="container">
-    <div class="p-4 p-md-5 mb-5 rounded text-bg-dark">
+    <div class="p-4 p-md-5 mb-5 rounded text-bg-dark mainDiv">
         <div class="col-md-6 px-0">
-            <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
-            <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and
-                efficiently about what’s most interesting in this post’s contents.</p>
-            <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+            <h1 class="display-5 fst-italic fw-bold">Welcome <span sec:authorize="isAuthenticated()">back</span> to The
+                Spork <span sec:authorize="isAuthenticated()" sec:authentication="name"></span></h1>
+            <p class="lead my-3"><span sec:authorize="!isAuthenticated()"><a class="text-white fw-bold"
+                                                                             th:href="@{/users/login}">Login</a> to your account or <a
+                    class="link-light fw-bold" th:href="@{/users/register}">create one</a> here. </span>Discover amazing
+                <a class="link-light fw-bold" th:href="@{/restaurants/all}">restaurants</a>, take a
+                look at their <a class="link-light fw-bold" th:href="@{/menus/all}"></a> menus and
+                feel free to write a <a class="link-light fw-bold" th:href="@{/reviews/create}">review</a> (or two), and
+                rate them <a class="link-light fw-bold" th:href="@{/reviews/all}">like these people did!</a></p>
+            <p class="lead mb-0">More info on our <a class="link-light fw-bold" th:href="@{/about}">about</a> page! :)
+            </p>
         </div>
     </div>
     <h1 class="top3">Top 3 restaurants right now</h1>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-6 restaurantsDiv">
         <div class="col">
             <div class="card shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-                     role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                     xmlns="http://www.w3.org/2000/svg"
+                     role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                     focusable="false">
                     <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                                                                 dy=".3em">Thumbnail</text>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="50%" y="50%" fill="#eceeef"
+                          dy=".3em">Thumbnail
+                    </text>
                 </svg>
                 <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional
                         content. This content is a little bit longer.</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
@@ -41,15 +53,20 @@
         </div>
         <div class="col">
             <div class="card shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-                     role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                     xmlns="http://www.w3.org/2000/svg"
+                     role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                     focusable="false">
                     <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                                                                 dy=".3em">Thumbnail</text>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="50%" y="50%" fill="#eceeef"
+                          dy=".3em">Thumbnail
+                    </text>
                 </svg>
 
                 <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional
                         content. This content is a little bit longer.</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
@@ -63,15 +80,20 @@
         </div>
         <div class="col">
             <div class="card shadow-sm">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-                     role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                     xmlns="http://www.w3.org/2000/svg"
+                     role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                     focusable="false">
                     <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                                                                 dy=".3em">Thumbnail</text>
+                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                    <text x="50%" y="50%" fill="#eceeef"
+                          dy=".3em">Thumbnail
+                    </text>
                 </svg>
 
                 <div class="card-body">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional
                         content. This content is a little bit longer.</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">

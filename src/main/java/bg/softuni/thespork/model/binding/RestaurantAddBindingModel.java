@@ -1,22 +1,20 @@
 package bg.softuni.thespork.model.binding;
 
 import bg.softuni.thespork.model.entities.enums.Cuisine;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class RestaurantAddBindingModel {
-    private String owner;
+    @NotBlank(message = "This field is required")
+    @Length(min = 2, max = 20, message = "Restaurant name must between 2 and 20 characters long")
     private String restaurantName;
+    @NotNull(message = "Please specify the cuisine")
     private Cuisine cuisine;
+
     public RestaurantAddBindingModel() {
 
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public RestaurantAddBindingModel setOwner(String owner) {
-        this.owner = owner;
-        return this;
     }
 
     public String getRestaurantName() {

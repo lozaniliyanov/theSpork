@@ -3,23 +3,52 @@
 
 .container {
     margin-top: 1.5rem;
-    border-radius: 0px!important;
+    border-radius: 0px !important;
     padding-inline: 0%;
     min-width: 98vw;
 }
-.register, .login {
+
+.register, .login, .restaurantAdd, .profile-page {
     max-width: 30vw;
     max-height: 80vh;
-    margin: 0 auto;
+    margin: 5rem auto 0 auto;
     padding: 1rem 2rem;
     border: 1px solid black;
 }
+
 .top3 {
     margin-top: -2rem;
     margin-bottom: 1rem;
     text-align: center;
 }
-.logout {
+
+.logout, .logout:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-div {
+    background-color: white;
+    bottom: 0;
+}
+
+.footer-p {
+    margin-bottom: -1rem !important;
+}
+
+.selectForm {
+    width: 11.49em;
+}
+
+.mainDiv {
+    margin-top: 5rem;
+}
+
+.restaurantsDiv {
+    margin-bottom: 1rem;
+}
+
+.change-password-link, .change-password-link:hover {
     color: white;
     text-decoration: none;
 }

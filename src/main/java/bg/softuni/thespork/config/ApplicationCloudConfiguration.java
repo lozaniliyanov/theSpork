@@ -7,25 +7,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
-public class CloudConfiguration {
+public class ApplicationCloudConfiguration {
 
     @Value("${cloudinary.cloud-name}")
-    private String cloudName;
+    private String cloudApiName;
     @Value("${cloudinary.api-key}")
-    private String apiKey;
+    private String cloudApiKey;
     @Value("${cloudinary.api-secret}")
-    private String apiSecret;
+    private String cloudApiSecret;
 
     @Bean
-    public Cloudinary createCloudinaryConfiguration() {
-
-        Map<String, Object> config = new HashMap<>();
-        config.put("cloud-name", cloudName);
-        config.put("api-key", apiKey);
-        config.put("api-secret", apiSecret);
-        return new Cloudinary();
+    public Cloudinary cloudinary() {
+        return new Cloudinary(new HashMap<String, Object>() {{
+            put("cloud_name", cloudApiName);
+            put("api_key", cloudApiKey);
+            put("api_secret", cloudApiSecret);
+        }});
     }
 }

@@ -1,15 +1,17 @@
 package bg.softuni.thespork.model.service;
 
-public class UserRegistrationServiceModel {
+import bg.softuni.thespork.model.entities.enums.Title;
+
+public class UserServiceModel {
 
     private String firstName;
     private String lastName;
-    private String title;
+    private Title title;
     private String username;
     private String email;
     private String password;
 
-    public UserRegistrationServiceModel() {
+    public UserServiceModel() {
 
     }
 
@@ -17,7 +19,7 @@ public class UserRegistrationServiceModel {
         return firstName;
     }
 
-    public UserRegistrationServiceModel setFirstName(String firstName) {
+    public UserServiceModel setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -26,16 +28,16 @@ public class UserRegistrationServiceModel {
         return lastName;
     }
 
-    public UserRegistrationServiceModel setLastName(String lastName) {
+    public UserServiceModel setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public String getTitle() {
+    public Title getTitle() {
         return title;
     }
 
-    public UserRegistrationServiceModel setTitle(String title) {
+    public UserServiceModel setTitle(Title title) {
         this.title = title;
         return this;
     }
@@ -44,7 +46,7 @@ public class UserRegistrationServiceModel {
         return username;
     }
 
-    public UserRegistrationServiceModel setUsername(String username) {
+    public UserServiceModel setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -53,7 +55,7 @@ public class UserRegistrationServiceModel {
         return email;
     }
 
-    public UserRegistrationServiceModel setEmail(String email) {
+    public UserServiceModel setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -62,7 +64,7 @@ public class UserRegistrationServiceModel {
         return password;
     }
 
-    public UserRegistrationServiceModel setPassword(String password) {
+    public UserServiceModel setPassword(String password) {
         this.password = password;
         return this;
     }

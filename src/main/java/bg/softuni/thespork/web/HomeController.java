@@ -13,19 +13,8 @@ public class HomeController {
     public String home() {
         return "home";
     }
-
-    @GetMapping("/adminPage")
-    public String adminPage() {
-        return "adminPage";
-    }
-
     @GetMapping("/about")
     public String about() {
         return "about";
-    }
-
-    @GetMapping("/contacts")
-    public String contacts() {
-        return "contacts";
     }
 }

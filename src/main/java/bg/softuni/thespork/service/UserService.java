@@ -1,11 +1,9 @@
 package bg.softuni.thespork.service;
 
 import bg.softuni.thespork.model.entities.UserEntity;
-import bg.softuni.thespork.model.service.UserRegistrationServiceModel;
-import bg.softuni.thespork.model.view.UserViewModel;
+import bg.softuni.thespork.model.service.UserServiceModel;
 
 public interface UserService {
-
     boolean userNameExists(String username);
 
     boolean emailExists(String email);
@@ -14,10 +12,15 @@ public interface UserService {
 
     UserEntity findByName(String username);
 
-    void registerAndLoginUser(UserRegistrationServiceModel userRegistrationServiceModel);
+    UserServiceModel findUserByUsername(String username);
 
-    void seedAdmin();
+    UserServiceModel findByUsername(String username);
 
-    UserViewModel findByUsername(String username);
-//    UserViewModel findByUsername(String username);
+    void registerAndLoginUser(UserServiceModel userServiceModel);
+
+    void seedUsers();
+
+    void updateProfile(UserServiceModel userServiceModel, String username, String newUsername);
+
+    UserServiceModel changePassword(UserServiceModel userServiceModel, String oldPassword, String username);
 }
