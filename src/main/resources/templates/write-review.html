@@ -8,50 +8,39 @@
 <header th:replace="fragments/commons :: navigation"></header>
 <main class="container">
     <div class="col-md-7 col-lg-8 restaurantAdd">
-        <h4 class="mb-3">Write a Review</h4>
-        <!--        <form class="needs-validation" th:action="@{/reviews/write-review}" th:object="${reviewAddBindingModel}"-->
-        <form class="needs-validation" th:action="@{/reviews/write-review}"
-              th:method="POST">
+        <h4 class="mb-3">Write a review</h4>
+        <form action="/reviews/write-review/" th:object="${reviewAddBindingModel}" method="GET">
             <div class="row g-3">
                 <div class="col-12">
                     <label for="reviewDescription" class="form-label">Comment</label>
                     <div class="input-group has-validation">
                         <input type="text" class="form-control" name="reviewDescription" id="reviewDescription"
-                               required placeholder="Write something...">
-                        <!--                               th:field="*{reviewDescription}"-->
-                        <!--                               th:errorclass="bg-danger" required placeholder="Write something...">-->
+                               th:field="*{comment}"
+                               th:errorclass="bg-danger" required placeholder="Write something...">
                     </div>
-                    <!--                    <div th:if="${#fields.hasErrors('reviewDescription')}" th:errors="*{reviewDescription}">-->
-                    <!--                    </div>-->
+                    <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">
+                    </div>
                     <div class="col-md-7">
-                        <label for="rating" class="form-label">Comment</label>
-                        <!--                        <input th:field="*{rating}" th:errorclass="bg-danger" class="form-control" type="number"-->
-                        <!--                               name="rating" id="rating" required min="1" max="5" step="0.1">-->
-                        <input class="form-control" type="number"
+                        <label for="rating" class="form-label">Rating</label>
+                        <input th:field="*{rating}" th:errorclass="bg-danger" class="form-control" type="number"
                                name="rating" id="rating" required min="1" max="5" step="0.1">
                     </div>
-                    <!--                    <div th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}">-->
-                    <!--                    </div>-->
+                    <div th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}">
+                    </div>
                 </div>
                 <div class="col-md-7 selectForm">
                     <label for="priceRange" class="form-label">Price Range</label>
-                    <!--                    <select th:field="*{priceRange}" class="form-select selectForm" name="priceRange" id="priceRange"-->
-                    <!--                            required-->
-                    <!--                            th:errorclass="bg-danger">-->
-                    <!--                        <option value="">Choose...</option>-->
-                    <!--                        <option th:each="pr : ${T(bg.softuni.thespork.model.entities.enums.PriceRange).values()}"-->
-                    <!--                                th:text="${pr}" th:value="${pr}">Try-->
-                    <!--                        </option>-->
-                    <!--                    </select>-->
-                    <select class="form-select selectForm" name="priceRange" id="priceRange"
-                            required>
+                    <select th:field="*{priceRange}" class="form-select selectForm" name="priceRange" id="priceRange"
+                            required
+                            th:errorclass="bg-danger">
                         <option value="">Choose...</option>
-                        <option>Try
+                        <option th:each="pr : ${T(bg.softuni.thespork.model.entities.enums.PriceRange).values()}"
+                                th:text="${pr}" th:value="${pr}">Try
                         </option>
                     </select>
                 </div>
-                <!--                <div th:if="${#fields.hasErrors('cuisine')}" th:errors="*{priceRange}">Choose the price range.-->
-                <!--                </div>-->
+                <div th:if="${#fields.hasErrors('priceRange')}" th:errors="*{priceRange}">Choose the price range.
+                </div>
                 <hr class="my-4">
                 <button class="w-100 btn btn-primary btn-lg" type="submit">Write Review</button>
             </div>

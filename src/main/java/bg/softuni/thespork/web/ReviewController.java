@@ -34,6 +34,9 @@ public class ReviewController {
 
     @GetMapping("write-review/{restaurantName}")
     public String writeReview(@PathVariable String restaurantName, Model model) {
+        if (!model.containsAttribute("reviewAddBindingModel")) {
+            model.addAttribute("reviewAddBindingModel", new ReviewAddBindingModel());
+        }
         RestaurantServiceModel restaurantServiceModel = restaurantService.findByRestaurantName(restaurantName);
         RestaurantViewModel restaurantViewModel = modelmapper.map(restaurantServiceModel, RestaurantViewModel.class);
         model.addAttribute("restaurantName", restaurantViewModel.getRestaurantName());
@@ -47,12 +50,12 @@ public class ReviewController {
             redirectAttributes.addFlashAttribute("reviewAddBindingModel", reviewAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.reviewAddBindingModel", bindingResult);
             redirectAttributes.addFlashAttribute("priceRange", PriceRange.values());
-            return "redirect:" + restaurantName;
+            return "redirect:/write-review" + restaurantName;
         }
         String username = principal.getName();
         RestaurantServiceModel restaurantServiceModel = restaurantService.findByRestaurantName(restaurantName);
         ReviewServiceModel reviewServiceModel = modelmapper.map(reviewAddBindingModel, ReviewServiceModel.class);
         reviewService.addReview(reviewServiceModel, username, restaurantServiceModel);
-        return "redirect:" + restaurantName;
+        return "redirect:/home";
     }
 }
