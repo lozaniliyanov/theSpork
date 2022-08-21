@@ -8,6 +8,7 @@ import bg.softuni.thespork.model.entities.enums.UserRole;
 import bg.softuni.thespork.model.service.UserServiceModel;
 import bg.softuni.thespork.repository.UserRepository;
 import bg.softuni.thespork.repository.UserRoleRepository;
+import bg.softuni.thespork.service.CloudinaryService;
 import bg.softuni.thespork.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,19 +27,19 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final TheSporkUserService theSporkUserService;
+    private final CloudinaryService cloudinaryService;
 
     public UserServiceImpl(UserRoleRepository userRoleRepository,
                            UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
                            ModelMapper modelMapper,
-                           TheSporkUserService theSporkUserService) {
+                           TheSporkUserService theSporkUserService, CloudinaryService cloudinaryService) {
         this.userRoleRepository = userRoleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.theSporkUserService = theSporkUserService;
-
-
+        this.cloudinaryService = cloudinaryService;
     }
 
 
@@ -119,7 +120,8 @@ public class UserServiceImpl implements UserService {
                 setFirstName(userServiceModel.getFirstName()).
                 setLastName(userServiceModel.getLastName()).
                 setTitle(userServiceModel.getTitle()).
-                setEmail(userServiceModel.getEmail());
+                setEmail(userServiceModel.getEmail()).
+                setProfilePic(userServiceModel.getProfilePic());
         userRepository.saveAndFlush(user);
         modelMapper.map(user, UserServiceModel.class);
     }

@@ -55,7 +55,7 @@
 
 .buttonnn {
     max-width: 81%;
-    padding-inline: 4rem;
+    padding-inline: 3.5rem;
 }
 
 .containerUserRestaurants, .containerAllRestaurants {
@@ -82,4 +82,9 @@
 .write-review {
     margin-top: 1rem;
     color: black;
+}
+
+.profile-image {
+    max-width: 30%;
+    max-height: 90%;
 }

@@ -8,6 +8,7 @@ public class UserViewModel {
     private String username;
     private String email;
     private String title;
+    private String image;
     private List<String> roles;
 
 
@@ -57,6 +58,15 @@ public class UserViewModel {
 
     public UserViewModel setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public UserViewModel setImage(String image) {
+        this.image = image;
         return this;
     }
 

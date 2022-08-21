@@ -12,7 +12,7 @@ public class UserServiceModel {
     private String username;
     private String email;
     private String password;
-    private String profileImageURL;
+    private String profilePic;
     private List<ReviewServiceModel> reviews;
 
     public UserServiceModel() {
@@ -73,12 +73,12 @@ public class UserServiceModel {
         return this;
     }
 
-    public String getProfileImageURL() {
-        return profileImageURL;
+    public String getProfilePic() {
+        return profilePic;
     }
 
-    public UserServiceModel setProfileImageURL(String profileImageURL) {
-        this.profileImageURL = profileImageURL;
+    public UserServiceModel setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
         return this;
     }
 

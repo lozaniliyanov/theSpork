@@ -24,7 +24,7 @@ public class UserEntity extends BaseEntity {
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "profile_image_url")
-    private String profileImageURL;
+    private String profilePic;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -89,12 +89,12 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public String getProfileImageURL() {
-        return profileImageURL;
+    public String getProfilePic() {
+        return profilePic;
     }
 
-    public UserEntity setProfileImageURL(String profileImageURL) {
-        this.profileImageURL = profileImageURL;
+    public UserEntity setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
         return this;
     }
 

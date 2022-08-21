@@ -6,20 +6,27 @@
 <main class="container">
     <div class="col-md-7 col-lg-8 profile-page">
         <h4 class="mb-3">Profile</h4>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Click to edit fields.</label>
-        </div>
+        <!--        <div class="form-check form-switch">-->
+        <!--            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">-->
+        <!--            <label class="form-check-label" for="flexSwitchCheckDefault">Click to edit fields.</label>-->
+        <!--        </div>-->
         <form class="needs-validation" th:action="@{/users/user-profile-page}"
               th:object="${userEditProfileBindingModel}" method="POST">
             <div class="row g-3">
+                <div th:if="*{profilePic == null}" class="containerProfilePage">
+                    <label for="defaultPic" class="form-label"></label>
+                    <img src="/images/portrait-placeholder.png" id="defaultPic"
+                         class="img-fluid img-thumbnail rounded float-right profile-image" alt="">
+                    <label for="formFileSm" class="form-label"></label>
+                    <input name="formFileSm" class="form-control form-control-sm" th:field="*{profilePic}"
+                           id="formFileSm" type="file">
+                </div>
                 <div class="col-sm-6">
                     <label for="firstName" class="form-label">First name</label>
                     <input type="text" class="form-control" name="firstName" id="firstName"
                            th:field="*{firstName}"
                            th:errorclass="bg-danger"
                            required
-                           disabled
                            placeholder="First Name">
                     <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Your first name is required.
                     </div>
@@ -30,7 +37,6 @@
                     <input type="text" class="form-control" name="lastName" id="lastName" th:field="*{lastName}"
                            th:errorclass="bg-danger"
                            required
-                           disabled
                            placeholder="Last Name">
                     <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Your last name is required.
                     </div>
@@ -40,7 +46,6 @@
                     <input type="email" class="form-control" name="email" id="email" th:field="*{email}"
                            th:errorclass="bg-danger"
                            required
-                           disabled
                            placeholder="you@example.com">
                 </div>
                 <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Please insert a valid email.
@@ -51,7 +56,6 @@
                         <input type="text" class="form-control" name="username" id="username" th:field="*{username}"
                                th:errorclass="bg-danger"
                                required
-                               disabled
                                placeholder="Username">
                     </div>
                     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Your username is required.
@@ -59,7 +63,7 @@
                 </div>
                 <div class="col-md-5">
                     <label for="title" class="form-label">Title</label>
-                    <select th:field="*{title}" class="form-select" name="title" id="title" disabled required
+                    <select th:field="*{title}" class="form-select" name="title" id="title" required
                             th:errorclass="bg-danger">
                         <option value="">Choose title</option>
                         <option th:each="t : ${T(bg.softuni.thespork.model.entities.enums.Title).values()}"
@@ -79,14 +83,14 @@
     </div>
 </main>
 <div th:replace="fragments/commons :: footer"></div>
-<script>
-    document.getElementById('flexSwitchCheckDefault').onchange = function () {
-        document.getElementById("firstName").disabled = !this.checked;
-        document.getElementById("lastName").disabled = !this.checked;
-        document.getElementById("email").disabled = !this.checked;
-        document.getElementById("username").disabled = !this.checked;
-        document.getElementById("title").disabled = !this.checked;
-    };
-</script>
+<!--<script>-->
+<!--    document.getElementById('flexSwitchCheckDefault').onchange = function () {-->
+<!--        document.getElementById("firstName").disabled = !this.checked;-->
+<!--        document.getElementById("lastName").disabled = !this.checked;-->
+<!--        document.getElementById("email").disabled = !this.checked;-->
+<!--        document.getElementById("username").disabled = !this.checked;-->
+<!--        document.getElementById("title").disabled = !this.checked;-->
+<!--    };-->
+<!--</script>-->
 </body>
 </html>

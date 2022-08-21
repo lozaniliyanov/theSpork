@@ -30,6 +30,7 @@ public class UserRegistrationBindingModel {
     @NotNull(message = "This field is required!")
     @Length(min = 4, max = 20, message = "Password must be between 4 and 20 characters long!")
     private String confirmPassword;
+    private String profilePic;
 
     public UserRegistrationBindingModel() {
 
@@ -95,6 +96,15 @@ public class UserRegistrationBindingModel {
 
     public UserRegistrationBindingModel setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+        return this;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public UserRegistrationBindingModel setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
         return this;
     }
 }

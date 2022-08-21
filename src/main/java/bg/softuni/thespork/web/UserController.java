@@ -4,6 +4,7 @@ import bg.softuni.thespork.model.binding.UserEditProfileBindingModel;
 import bg.softuni.thespork.model.binding.UserPasswordChangeBindingModel;
 import bg.softuni.thespork.model.binding.UserRegistrationBindingModel;
 import bg.softuni.thespork.model.service.UserServiceModel;
+import bg.softuni.thespork.service.CloudinaryService;
 import bg.softuni.thespork.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -26,11 +29,14 @@ public class UserController {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final CloudinaryService cloudinaryService;
 
-    public UserController(ModelMapper modelMapper, UserService userService, PasswordEncoder passwordEncoder) {
+
+    public UserController(ModelMapper modelMapper, UserService userService, PasswordEncoder passwordEncoder, CloudinaryService cloudinaryService) {
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @ModelAttribute("userRegistrationBindingModel")
@@ -55,8 +61,7 @@ public class UserController {
             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
-            redirectAttributes.addFlashAttribute(
-                    "org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
             return "redirect:/users/register";
         }
         if (userService.existsByUsername(userRegistrationBindingModel.getUsername())) {
@@ -69,6 +74,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("existsByEmail", true);
             return "redirect:/users/register";
         }
+        userRegistrationBindingModel.setProfilePic("src/main/resources/static/images/portrait-placeholder.png");
         UserServiceModel userServiceModel = modelMapper.map(userRegistrationBindingModel, UserServiceModel.class);
         userService.registerAndLoginUser(userServiceModel);
         return "redirect:/home";
@@ -78,6 +84,7 @@ public class UserController {
     public String profilePage(Model model, Principal principal) {
         UserServiceModel userServiceModel = userService.findByUsername(principal.getName());
         UserEditProfileBindingModel userEditProfileBindingModel = modelMapper.map(userServiceModel, UserEditProfileBindingModel.class);
+        userEditProfileBindingModel.setProfilePic(null);
         if (!model.containsAttribute("userEditProfileBindingModel")) {
             model.addAttribute("userEditProfileBindingModel", userEditProfileBindingModel);
         }
@@ -88,14 +95,17 @@ public class UserController {
     @PostMapping("/user-profile-page")
     public String profileEdit(@Valid @ModelAttribute("userEditProfileBindingModel") UserEditProfileBindingModel userEditProfileBindingModel,
                               BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                              Principal principal) {
+                              Principal principal) throws IOException {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userEditProfileBindingModel", userEditProfileBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userEditProfileBindingModel",
                     bindingResult);
             return "redirect:/users/user-profile-page";
         }
+        MultipartFile img = userEditProfileBindingModel.getProfilePic();
+        String url = cloudinaryService.uploadImage(img);
         UserServiceModel userServiceModel = modelMapper.map(userEditProfileBindingModel, UserServiceModel.class);
+        userServiceModel.setProfilePic(url);
         String newUsername = userEditProfileBindingModel.getUsername();
         userService.updateProfile(userServiceModel, principal.getName(), newUsername);
 

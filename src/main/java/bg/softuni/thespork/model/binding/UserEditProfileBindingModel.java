@@ -2,6 +2,7 @@ package bg.softuni.thespork.model.binding;
 
 import bg.softuni.thespork.model.entities.enums.Title;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -28,6 +29,7 @@ public class UserEditProfileBindingModel {
     private String newPassword;
     @Length(min = 4, max = 20, message = "Password must be between 4 and 20 characters long!")
     private String confirmNewPassword;
+    private MultipartFile profilePic;
 
     public UserEditProfileBindingModel() {
 
@@ -78,7 +80,7 @@ public class UserEditProfileBindingModel {
         return this;
     }
 
-    public String password() {
+    public String getPassword() {
         return password;
     }
 
@@ -102,6 +104,15 @@ public class UserEditProfileBindingModel {
 
     public UserEditProfileBindingModel setConfirmNewPassword(String confirmNewPassword) {
         this.confirmNewPassword = confirmNewPassword;
+        return this;
+    }
+
+    public MultipartFile getProfilePic() {
+        return profilePic;
+    }
+
+    public UserEditProfileBindingModel setProfilePic(MultipartFile profilePic) {
+        this.profilePic = profilePic;
         return this;
     }
 }
