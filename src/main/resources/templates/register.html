@@ -37,8 +37,8 @@
                            required
                            placeholder="you@example.com">
                 </div>
-                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Please insert a valid email.
-                </div>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Please insert a valid email.</div>
+                <div th:if="${existsByEmail}">Email is already occupied.</div>
                 <div class="col-12">
                     <label for="username" class="form-label">Username</label>
                     <div class="input-group has-validation">
@@ -49,6 +49,7 @@
                     </div>
                     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Your username is required.
                     </div>
+                    <div th:if="${existsByUsername}">Username is already occupied.</div>
                 </div>
                 <div class="col-12">
                     <label for="password" class="form-label">Password</label>

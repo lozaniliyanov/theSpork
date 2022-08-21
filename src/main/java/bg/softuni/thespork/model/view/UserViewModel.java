@@ -10,6 +10,7 @@ public class UserViewModel {
     private String title;
     private List<String> roles;
 
+
     public UserViewModel() {
 
     }

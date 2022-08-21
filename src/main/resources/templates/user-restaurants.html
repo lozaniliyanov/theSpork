@@ -8,17 +8,16 @@
 <body>
 <header th:replace="fragments/commons :: navigation"></header>
 <main>
-    <div class="containerAllRestaurants">
+    <div class="containerUserRestaurants">
         <h4 class="mb-3">Restaurants</h4>
-        <div th:if="*{restaurantsCount != 0}">
-            <h1 th:text="|There are *{restaurantsCount} restaurants on the site so far!|"></h1>
+        <div th:if="${#lists.isEmpty(allUserRestaurants)}">
+            <div class="row mx-auto">
+                <h1 class="font-weight-bold col-md-12 text-center">Doesn't seem like you own any restaurants</h1>
+            </div>
         </div>
-        <div th:if="*{restaurantsCount == 0}">
-            <h1 class="font-weight-bold col-md-12 text-center">No restaurants on the site yet</h1>
-        </div>
-        <form th:action="@{/restaurants/restaurants-all}" th:method="GET">
+        <form class="userRestaurants" th:action="@{/restaurants/user-restaurants}" th:method="GET">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div th:each="restaurant: ${allRestaurants}" th:object="${restaurant}" class="col">
+                <div th:each="restaurant: ${allUserRestaurants}" th:object="${restaurant}" class="col">
                     <div class="card shadow-sm">
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
                              xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
@@ -32,7 +31,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <p class="card-text" th:text="|Name: *{restaurantName}|">Value: Some Value</p>
+                                    <p class="card-text" th:text="|Name: *{restaurantName}|">Value: Some Value
+                                    </p>
                                     <p class="card-text" th:text="|Cuisine: *{cuisine}|">Value: Some Value</p>
                                     <p class="card-text" th:if="*{priceRange != null}"
                                        th:text="|Price Range: *{priceRange}|">Value: Some Value</p>
@@ -56,8 +56,7 @@
                                             </div>
                                             <div>
                                                 <a class="write-review"
-                                                   th:href="@{/reviews/write-review/{restaurantName}(restaurantName=${restaurant.restaurantName})}">Write
-                                                    a review</a>
+                                                   th:href="@{/reviews/write-review}">Write a review</a>
                                             </div>
                                             <div>
                                                 <a class="add-menu"

@@ -9,7 +9,8 @@
 <main class="container">
     <div class="col-md-7 col-lg-8 restaurantAdd">
         <h4 class="mb-3">Add your Restaurant</h4>
-        <form class="needs-validation" th:action="@{/restaurants/add}" th:object="${restaurantAddBindingModel}"
+        <form class="needs-validation" th:action="@{/restaurants/restaurant-add}"
+              th:object="${restaurantAddBindingModel}"
               method="POST">
             <div class="row g-3">
                 <div class="col-12">
@@ -18,6 +19,7 @@
                         <input type="text" class="form-control" name="restaurantName" id="restaurantName"
                                th:field="*{restaurantName}"
                                th:errorclass="bg-danger" required placeholder="Restaurant Name">
+                        <div th:if="${existsByRestaurantName}">Restaurant name is already taken.</div>
                     </div>
                     <div th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}">Restaurant
                         Name is

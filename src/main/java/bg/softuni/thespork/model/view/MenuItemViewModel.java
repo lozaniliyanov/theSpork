@@ -1,17 +1,17 @@
-package bg.softuni.thespork.model.service;
+package bg.softuni.thespork.model.view;
 
 import bg.softuni.thespork.model.entities.enums.MenuCategory;
 
 import java.math.BigDecimal;
 
-public class MenuItemServiceModel {
+public class MenuItemViewModel {
     private MenuCategory menuCategory;
     private String menuItemName;
     private String description;
     private BigDecimal price;
-    private MenuServiceModel menu;
+    private MenuViewModel menu;
 
-    public MenuItemServiceModel() {
+    public MenuItemViewModel() {
 
     }
 
@@ -19,7 +19,7 @@ public class MenuItemServiceModel {
         return menuCategory;
     }
 
-    public MenuItemServiceModel setMenuCategory(MenuCategory menuCategory) {
+    public MenuItemViewModel setMenuCategory(MenuCategory menuCategory) {
         this.menuCategory = menuCategory;
         return this;
     }
@@ -28,7 +28,7 @@ public class MenuItemServiceModel {
         return menuItemName;
     }
 
-    public MenuItemServiceModel setMenuItemName(String menuItemName) {
+    public MenuItemViewModel setMenuItemName(String menuItemName) {
         this.menuItemName = menuItemName;
         return this;
     }
@@ -37,7 +37,7 @@ public class MenuItemServiceModel {
         return description;
     }
 
-    public MenuItemServiceModel setDescription(String description) {
+    public MenuItemViewModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -46,16 +46,16 @@ public class MenuItemServiceModel {
         return price;
     }
 
-    public MenuItemServiceModel setPrice(BigDecimal price) {
+    public MenuItemViewModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
 
-    public MenuServiceModel getMenu() {
+    public MenuViewModel getMenu() {
         return menu;
     }
 
-    public MenuItemServiceModel setMenu(MenuServiceModel menu) {
+    public MenuItemViewModel setMenu(MenuViewModel menu) {
         this.menu = menu;
         return this;
     }

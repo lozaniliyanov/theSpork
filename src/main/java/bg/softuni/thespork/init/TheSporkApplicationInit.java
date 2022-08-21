@@ -27,11 +27,11 @@ public class TheSporkApplicationInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
         userRoleService.seedRoles();
         userService.seedUsers();
-        restaurantService.seedRestaurants();
+//        restaurantService.seedRestaurants();
         // TODO: 20/08/2022 remove seeds
-        reviewService.seedReviews();
-        menuService.seedMenus();
-        menuItemService.seedMenuItems();
+//        reviewService.seedReviews();
+//        menuService.seedMenus();
+//        menuItemService.seedMenuItems();
 
     }
 }

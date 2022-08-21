@@ -57,17 +57,16 @@ public class UserController {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
-
             return "redirect:/users/register";
         }
-        if (userService.userNameExists(userRegistrationBindingModel.getUsername())) {
+        if (userService.existsByUsername(userRegistrationBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
-            redirectAttributes.addFlashAttribute("userExistsError", true);
+            redirectAttributes.addFlashAttribute("existsByUsername", true);
             return "redirect:/users/register";
         }
-        if (userService.emailExists(userRegistrationBindingModel.getEmail())) {
+        if (userService.existsByEmail(userRegistrationBindingModel.getEmail())) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
-            redirectAttributes.addFlashAttribute("emailExistsError", true);
+            redirectAttributes.addFlashAttribute("existsByEmail", true);
             return "redirect:/users/register";
         }
         UserServiceModel userServiceModel = modelMapper.map(userRegistrationBindingModel, UserServiceModel.class);

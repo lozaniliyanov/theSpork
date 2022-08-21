@@ -15,10 +15,14 @@
             <p class="lead my-3"><span sec:authorize="!isAuthenticated()"><a class="text-white fw-bold"
                                                                              th:href="@{/users/login}">Login</a> to your account or <a
                     class="link-light fw-bold" th:href="@{/users/register}">create one</a> here. </span>Discover amazing
-                <a class="link-light fw-bold" th:href="@{/restaurants/all}">restaurants</a>, take a
+                <a class="link-light fw-bold" th:href="@{/restaurants/restaurants-all}">restaurants</a>, take a
                 look at their <a class="link-light fw-bold" th:href="@{/menus/all}"></a> menus and
-                feel free to write a <a class="link-light fw-bold" th:href="@{/reviews/create}">review</a> (or two), and
-                rate them <a class="link-light fw-bold" th:href="@{/reviews/all}">like these people did!</a></p>
+                feel free to write a <a class="link-light fw-bold" th:href="@{/reviews/write-review}">review</a> (or
+                two), and
+                rate them <a class="link-light fw-bold" th:href="@{/reviews/reviews-all}">like these people did!</a></p>
+            <p class="lead mb-0">Own a restaurant? <a class="link-light fw-bold"
+                                                      th:href="@{/restaurants/restaurant-add}">Click here</a> to add it!
+            </p>
             <p class="lead mb-0">More info on our <a class="link-light fw-bold" th:href="@{/about}">about</a> page! :)
             </p>
         </div>

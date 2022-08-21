@@ -2,6 +2,8 @@ package bg.softuni.thespork.model.service;
 
 import bg.softuni.thespork.model.entities.enums.Title;
 
+import java.util.List;
+
 public class UserServiceModel {
 
     private String firstName;
@@ -10,6 +12,8 @@ public class UserServiceModel {
     private String username;
     private String email;
     private String password;
+    private String profileImageURL;
+    private List<ReviewServiceModel> reviews;
 
     public UserServiceModel() {
 
@@ -66,6 +70,24 @@ public class UserServiceModel {
 
     public UserServiceModel setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getProfileImageURL() {
+        return profileImageURL;
+    }
+
+    public UserServiceModel setProfileImageURL(String profileImageURL) {
+        this.profileImageURL = profileImageURL;
+        return this;
+    }
+
+    public List<ReviewServiceModel> getReviews() {
+        return reviews;
+    }
+
+    public UserServiceModel setReviews(List<ReviewServiceModel> reviews) {
+        this.reviews = reviews;
         return this;
     }
 }

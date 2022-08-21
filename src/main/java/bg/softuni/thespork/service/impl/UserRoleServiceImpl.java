@@ -16,7 +16,6 @@ public class UserRoleServiceImpl implements UserRoleService {
     public UserRoleServiceImpl(UserRoleRepository userRoleRepository) {
         this.userRoleRepository = userRoleRepository;
     }
-
     @Override
     public void seedRoles() {
         if (userRoleRepository.count() == 0) {

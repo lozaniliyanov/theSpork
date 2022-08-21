@@ -1,6 +1,8 @@
 package bg.softuni.thespork.model.entities;
 
 import bg.softuni.thespork.model.entities.enums.Title;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,10 +25,11 @@ public class UserEntity extends BaseEntity {
     private String password;
     @Column(name = "profile_image_url")
     private String profileImageURL;
-    @OneToMany(mappedBy = "author")
-    private List<ReviewEntity> reviews;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "author")
+    private List<ReviewEntity> reviews;
 
     public UserEntity() {
 

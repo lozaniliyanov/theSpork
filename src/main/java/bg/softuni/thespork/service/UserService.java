@@ -4,9 +4,9 @@ import bg.softuni.thespork.model.entities.UserEntity;
 import bg.softuni.thespork.model.service.UserServiceModel;
 
 public interface UserService {
-    boolean userNameExists(String username);
+    boolean existsByEmail(String email);
 
-    boolean emailExists(String email);
+    boolean existsByUsername(String username);
 
     UserEntity findById(Long id);
 

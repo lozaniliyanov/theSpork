@@ -2,6 +2,8 @@ package bg.softuni.thespork.model.entities;
 
 import bg.softuni.thespork.model.entities.enums.Cuisine;
 import bg.softuni.thespork.model.entities.enums.PriceRange;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "restaurants")
 public class RestaurantEntity extends BaseEntity {
-    @Column(name = "restaurant_name", nullable = false)
+    @Column(name = "restaurant_name", nullable = false, unique = true)
     private String restaurantName;
     @Enumerated(EnumType.STRING)
     private Cuisine cuisine;
@@ -19,8 +21,9 @@ public class RestaurantEntity extends BaseEntity {
     private MenuEntity menuEntity;
     @Column(name = "rating")
     private double rating;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private UserEntity owner;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "restaurant")
     private List<ReviewEntity> reviews;
 

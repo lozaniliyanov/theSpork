@@ -1,9 +1,9 @@
 package bg.softuni.thespork.service.impl;
 
+import bg.softuni.thespork.exceptions.RestaurantNotFoundException;
 import bg.softuni.thespork.model.entities.RestaurantEntity;
-import bg.softuni.thespork.model.entities.enums.Cuisine;
-import bg.softuni.thespork.model.entities.enums.PriceRange;
 import bg.softuni.thespork.model.service.RestaurantServiceModel;
+import bg.softuni.thespork.model.service.UserServiceModel;
 import bg.softuni.thespork.repository.RestaurantRepository;
 import bg.softuni.thespork.service.RestaurantService;
 import bg.softuni.thespork.service.UserService;
@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -25,49 +26,22 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.userService = userService;
     }
 
-    @Override
-    public void seedRestaurants() {
-        RestaurantEntity pikos = new RestaurantEntity().
-                setRestaurantName("Pikos").
-                setCuisine(Cuisine.MEXICAN).
-                setPriceRange(PriceRange.$$$$).
-                setRating(5.0).
-                setOwner(userService.findByName("pikosOwner"));
-        RestaurantEntity mamos = new RestaurantEntity().
-                setRestaurantName("Mamos").
-                setCuisine(Cuisine.AMERICAN).
-                setPriceRange(PriceRange.$$$$).
-                setRating(5.0).
-                setOwner(userService.findByName("mamosOwner"));
-        restaurantRepository.save(pikos);
-        restaurantRepository.save(mamos);
-    }
-
 
     @Override
-    public void addRestaurant(RestaurantServiceModel restaurantServiceModel) {
-
-    }
-
-    @Override
-    public RestaurantServiceModel findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public RestaurantEntity findByName(String name) {
-        return restaurantRepository.findByRestaurantName(name).orElseThrow(IllegalArgumentException::new);
-    }
-
-    @Override
-    public List<RestaurantServiceModel> findAllRestaurants() {
-        return null;
+    public void addRestaurant(RestaurantServiceModel restaurantServiceModel, String username) {
+        restaurantServiceModel.setOwner(username);
+        RestaurantEntity restaurant = modelMapper.map(restaurantServiceModel, RestaurantEntity.class);
+        restaurant.setOwner(userService.findByName(username));
+        restaurantRepository.saveAndFlush(restaurant);
     }
 
     @Override
     public List<RestaurantServiceModel> findAllUserRestaurants(String username) {
-        return null;
+        UserServiceModel owner = userService.findUserByUsername(username);
+        List<RestaurantEntity> userRestaurants = restaurantRepository.findAllByOwner_Username(owner.getUsername());
+        return userRestaurants.stream().map(restaurantEntity -> modelMapper.map(restaurantEntity, RestaurantServiceModel.class)).collect(Collectors.toList());
     }
+
 
     @Override
     public void deleteRestaurant(Long id) {
@@ -78,4 +52,56 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantServiceModel editRestaurantInfo(RestaurantServiceModel restaurantServiceModel, Long id) {
         return null;
     }
+
+    @Override
+    public int RestaurantsCount() {
+        return restaurantRepository.countRestaurantEntities();
+    }
+
+    @Override
+    public boolean existsByRestaurantName(String restaurantName) {
+        return this.restaurantRepository.existsByRestaurantName(restaurantName);
+    }
+
+    @Override
+    public RestaurantServiceModel findByRestaurantName(String restaurantName) {
+        RestaurantEntity restaurant = restaurantRepository.
+                findByRestaurantName(restaurantName).
+                orElseThrow(() -> new RestaurantNotFoundException(
+                        String.format("Restaurant with name %s not found", restaurantName)));
+        return modelMapper.map(restaurant, RestaurantServiceModel.class);
+
+
+    }
+
+    @Override
+    public List<RestaurantServiceModel> findAllRestaurants() {
+        return this.restaurantRepository.findAll().stream().map(restaurant -> this.modelMapper.map(restaurant, RestaurantServiceModel.class)).collect(Collectors.toList());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

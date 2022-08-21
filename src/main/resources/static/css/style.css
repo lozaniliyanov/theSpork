@@ -52,3 +52,34 @@
     color: white;
     text-decoration: none;
 }
+
+.buttonnn {
+    max-width: 81%;
+    padding-inline: 4rem;
+}
+
+.containerUserRestaurants, .containerAllRestaurants {
+    border: 1px solid black;
+    margin: 5rem auto;
+    padding: 2rem;
+    max-width: 81vw;
+}
+
+.colRight {
+    margin: 1rem auto;
+}
+
+.rowRight {
+    text-align: center;
+    margin: 1rem auto;
+}
+
+.restaurantRating {
+    padding-inline: 1rem;
+    display: inline;
+}
+
+.write-review {
+    margin-top: 1rem;
+    color: black;
+}

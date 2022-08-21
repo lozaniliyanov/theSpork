@@ -39,18 +39,28 @@
                     <li sec:authorize="!isAuthenticated()" class="nav-item">
                         <a class="nav-link active" th:href="@{/users/login}">Login</a>
                     </li>
-                    <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a class="nav-link active" th:href="@{/users/user-profile-page}">Profile</a>
-                    </li>
-                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link dropdown-toggle" th:href="@{/}" data-bs-toggle="dropdown"
-                           aria-expanded="false">Dropdown</a>
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_USER')">
+                        <a class="nav-link active dropdown-toggle" th:href="@{/}" data-bs-toggle="dropdown"
+                           aria-expanded="false">Profile</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/}">Action</a></li>
-                            <li><a class="dropdown-item" th:href="@{/}">Another action</a></li>
-                            <li><a class="dropdown-item" th:href="@{/}">Something else here</a></li>
+                            <li><a class="dropdown-item" th:href="@{/users/user-profile-page}">Profile Page</a></li>
+                            <li><a class="dropdown-item" th:href="@{/restaurants/user-restaurants}">Your Restaurants</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/reviews/user-reviews}">Your Reviews</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+                        <a class="nav-link active" th:href="@{/restaurants/restaurants-all}">All Restaurants</a>
+                    </li>
+                    <!--                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">-->
+                    <!--                        <a class="nav-link active dropdown-toggle" th:href="@{/}" data-bs-toggle="dropdown"-->
+                    <!--                           aria-expanded="false">Dropdown</a>-->
+                    <!--                        <ul class="dropdown-menu">-->
+                    <!--                            <li><a class="dropdown-item" th:href="@{/}">Action</a></li>-->
+                    <!--                            <li><a class="dropdown-item" th:href="@{/}">Another action</a></li>-->
+                    <!--                            <li><a class="dropdown-item" th:href="@{/}">Something else here</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </li>-->
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form th:action="@{/logout}" method="POST">
                             <button type="submit" class="btn btn-link logout">Logout</button>

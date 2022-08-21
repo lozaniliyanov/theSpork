@@ -7,7 +7,7 @@ import bg.softuni.thespork.model.service.MenuServiceModel;
 import java.util.List;
 
 public interface MenuItemService {
-    void seedMenuItems();
+//    void seedMenuItems();
 
     MenuItemServiceModel addMenuItem(MenuItemServiceModel menuItemServiceModel, MenuServiceModel menuServiceModel);
 

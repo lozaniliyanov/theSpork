@@ -1,24 +1,25 @@
 package bg.softuni.thespork.service;
 
-import bg.softuni.thespork.model.entities.RestaurantEntity;
 import bg.softuni.thespork.model.service.RestaurantServiceModel;
 
 import java.util.List;
 
 public interface RestaurantService {
-    void seedRestaurants();
 
-    void addRestaurant(RestaurantServiceModel restaurantServiceModel);
-
-    RestaurantServiceModel findById(Long id);
-
-    RestaurantEntity findByName(String name);
-
-    List<RestaurantServiceModel> findAllRestaurants();
+    void addRestaurant(RestaurantServiceModel restaurantServiceModel, String username);
 
     List<RestaurantServiceModel> findAllUserRestaurants(String username);
+
+    List<RestaurantServiceModel> findAllRestaurants();
 
     void deleteRestaurant(Long id);
 
     RestaurantServiceModel editRestaurantInfo(RestaurantServiceModel restaurantServiceModel, Long id);
+
+    //    List<RestaurantViewModel> getAllRestaurants();
+    int RestaurantsCount();
+
+    boolean existsByRestaurantName(String restaurantName);
+
+    RestaurantServiceModel findByRestaurantName(String restaurantName);
 }

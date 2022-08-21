@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface ReviewService {
     // TODO: 20/08/2022 add getAllReviewsMethod
-    void seedReviews();
+//    void seedReviews();
 
     ReviewServiceModel addReview(ReviewServiceModel reviewServiceModel, String user, RestaurantServiceModel restaurantServiceModel);
 
     ReviewServiceModel findById(Long id);
 
-    List<ReviewServiceModel> findReviewsByRestaurantId(Long id);
+    List<ReviewServiceModel> findReviewsByRestaurantName(String restaurantName);
 
     void deleteReview(Long id);
 }

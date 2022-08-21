@@ -1,6 +1,5 @@
 package bg.softuni.thespork.service.impl;
 
-import bg.softuni.thespork.model.entities.MenuItemEntity;
 import bg.softuni.thespork.model.entities.enums.MenuCategory;
 import bg.softuni.thespork.model.service.MenuItemServiceModel;
 import bg.softuni.thespork.model.service.MenuServiceModel;
@@ -11,7 +10,6 @@ import bg.softuni.thespork.service.MenuService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -29,16 +27,16 @@ public class MenuItemServiceImpl implements MenuItemService {
         this.menuRepository = menuRepository;
     }
 
-    @Override
-    public void seedMenuItems() {
-        MenuItemEntity menuItemStarter1ForPikos = new MenuItemEntity().
-                setMenuItemName("menuItemStarter1ForPikos").
-                setMenuCategory(MenuCategory.STARTER).
-                setDescription("Description for menuItemStarter1ForPikos").
-                setPrice(BigDecimal.valueOf(1)).
-                setMenu(menuRepository.findById(1L).orElseThrow());
-        menuItemRepository.save(menuItemStarter1ForPikos);
-    }
+//    @Override
+//    public void seedMenuItems() {
+//        MenuItemEntity menuItemStarter1ForPikos = new MenuItemEntity().
+//                setMenuItemName("menuItemStarter1ForPikos").
+//                setMenuCategory(MenuCategory.STARTER).
+//                setDescription("Description for menuItemStarter1ForPikos").
+//                setPrice(BigDecimal.valueOf(1)).
+//                setMenu(menuRepository.findById(1L).orElseThrow());
+//        menuItemRepository.save(menuItemStarter1ForPikos);
+//    }
 
     @Override
     public MenuItemServiceModel addMenuItem(MenuItemServiceModel menuItemServiceModel, MenuServiceModel menuServiceModel) {

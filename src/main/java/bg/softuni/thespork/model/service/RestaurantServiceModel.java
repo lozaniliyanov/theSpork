@@ -3,31 +3,32 @@ package bg.softuni.thespork.model.service;
 import java.util.List;
 
 public class RestaurantServiceModel {
-    private UserServiceModel owner;
-    private RestaurantServiceModel restaurant;
+    private String owner;
+    private String restaurantName;
     private String cuisine;
     private String priceRange;
+    private MenuServiceModel menuServiceModel;
     private List<ReviewServiceModel> reviews;
 
     public RestaurantServiceModel() {
 
     }
 
-    public UserServiceModel getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public RestaurantServiceModel setOwner(UserServiceModel owner) {
+    public RestaurantServiceModel setOwner(String owner) {
         this.owner = owner;
         return this;
     }
 
-    public RestaurantServiceModel getRestaurant() {
-        return restaurant;
+    public String getRestaurantName() {
+        return restaurantName;
     }
 
-    public RestaurantServiceModel setRestaurant(RestaurantServiceModel restaurant) {
-        this.restaurant = restaurant;
+    public RestaurantServiceModel setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
         return this;
     }
 
@@ -46,6 +47,15 @@ public class RestaurantServiceModel {
 
     public RestaurantServiceModel setPriceRange(String priceRange) {
         this.priceRange = priceRange;
+        return this;
+    }
+
+    public MenuServiceModel getMenuServiceModel() {
+        return menuServiceModel;
+    }
+
+    public RestaurantServiceModel setMenuServiceModel(MenuServiceModel menuServiceModel) {
+        this.menuServiceModel = menuServiceModel;
         return this;
     }
 

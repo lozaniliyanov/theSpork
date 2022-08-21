@@ -43,13 +43,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean userNameExists(String username) {
-        return userRepository.findByUsername(username).isPresent();
+    public boolean existsByEmail(String email) {
+        return this.userRepository.existsByEmail(email);
     }
 
     @Override
-    public boolean emailExists(String email) {
-        return userRepository.findByEmail(email).isPresent();
+    public boolean existsByUsername(String username) {
+        return this.userRepository.existsByUsername(username);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
                     orElseThrow(() -> new IllegalStateException("ADMIN role not found. Please seed the roles."));
             admin.addRole(userRole);
             admin.addRole(adminRole);
-            userRepository.save(admin);
+            userRepository.saveAndFlush(admin);
             UserEntity pikosOwner = new UserEntity().setUsername("pikosOwner").setPassword(passwordEncoder.encode("1234")).setEmail("pikosOwner@softuni.bg").setFirstName("Lozan").setLastName("Lozanov").setTitle(Title.Mr);
             pikosOwner.addRole(userRole);
             userRepository.save(pikosOwner);
@@ -121,10 +121,6 @@ public class UserServiceImpl implements UserService {
                 setTitle(userServiceModel.getTitle()).
                 setEmail(userServiceModel.getEmail());
         userRepository.saveAndFlush(user);
-//        UserDetails principal = theSporkUserService.loadUserByUsername(user.getUsername());
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(
-//                principal, user.getPassword(), principal.getAuthorities());
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
         modelMapper.map(user, UserServiceModel.class);
     }
 
